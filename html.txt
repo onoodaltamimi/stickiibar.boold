@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stickii Bar</title>
+<style>
+body {
+    font-family: sans-serif;
+    background: #E8C4CF;
+    margin: 0;
+    text-align: center;
+    padding: 20px;
+}
+.container {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+img {
+    width: 180px;
+    margin-bottom: 15px;
+}
+.logo {
+    width: 120px;
+    margin-bottom: 20px;
+}
+h2 {
+    color: #4B3F8F;
+}
+p {
+    font-size: 16px;
+}
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 8px;
+}
+.next {
+    background: #D3367E;
+    color: white;
+}
+.back {
+    background: #4B3F8F;
+    color: white;
+}
+.hidden { display: none; }
+.choice {
+    display: block;
+    width: 100%;
+    background: #D3367E;
+    color: white;
+    margin: 10px 0;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div id="start">
+<img src="logo.png" class="logo" alt="Logo">
+<h2>✨ Stickii Bar</h2>
+<p>مرحباً بك في تجربة الطباعة<br>سأكون معك خطوة بخطوة</p>
+<button class="choice" onclick="startFabric()">👜 الطباعة على القماش</button>
+<button class="choice" onclick="startCup()">☕ الطباعة على الأكواب</button>
+</div>
+
+<div id="stepArea" class="hidden">
+<img id="stepImage">
+<h3 id="stepText"></h3>
+<button id="backBtn" class="back hidden" onclick="prev()">السابق</button>
+<button class="next" onclick="next()">التالي</button>
+</div>
+
+<audio id="clickSound">
+<source src="click.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+let steps = [];
+let step = 0;
+
+function play() {
+    document.getElementById("clickSound").play();
+}
+
+function startFabric() {
+    steps = [
+        ["اختر الاستكرات", "fabric1.png"],
+        ["ضع الباوتش على الحصيرة", "fabric2.png"],
+        ["رتب الاستكرات", "fabric3.png"],
+        ["ضع ورق الحماية", "fabric4.png"],
+        ["اضغط بالمكبس الحراري", "fabric5.png"],
+        ["انتظر حتى يبرد", "fabric6.png"],
+        ["أزل الطبقة الشفافة", "fabric7.png"],
+        ["انتهيت! استمتع بقطعتك 🎉", "finish.png"]
+    ];
+    startSteps();
+}
+
+function startCup() {
+    steps = [
+        ["اختر الاستكر", "cup1.png"],
+        ["ضع الاستكر واضغط عليه جيداً", "cup2.png"],
+        ["أزل الطبقة الشفافة", "cup3.png"],
+        ["انتهيت! استمتع بقطعتك 🎉", "finish.png"]
+    ];
+    startSteps();
+}
+
+function startSteps() {
+    step = 0;
+    document.getElementById("start").style.display = "none";
+    document.getElementById("stepArea").classList.remove("hidden");
+    show();
+}
+
+function show() {
+    document.getElementById("stepText").innerText = steps[step][0];
+    document.getElementById("stepImage").src = steps[step][1];
+    if(step > 0){
+        document.getElementById("backBtn").classList.remove("hidden");
+    } else {
+        document.getElementById("backBtn").classList.add("hidden");
+    }
+    // إذا آخر خطوة، أخفي زر التالي
+    if(step === steps.length - 1){
+        document.querySelector(".next").classList.add("hidden");
+    } else {
+        document.querySelector(".next").classList.remove("hidden");
+    }
+}
+
+function next() {
+    play();
+    if(step < steps.length - 1){
+        step++;
+        show();
+    }
+}
+
+function prev() {
+    play();
+    if(step > 0){
+        step--;
+        show();
+    }
+}
+</script>
+
+</body>
+</html>
