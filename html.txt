@@ -23,11 +23,10 @@ body {
 img {
     width: 180px;
     margin-bottom: 15px;
- {
-    width: 180px;
-    margin-bottom: 15px;
 }
 .logo {
+    width: 120px;
+    margin-bottom: 20px;
 }
 h2 {
     color: #4B3F8F;
@@ -66,6 +65,7 @@ button {
 <div class="container">
 
 <div id="start">
+<img src="./logo.png" class="logo" alt="Logo">
 <h2>✨ Stickii Bar</h2>
 <p>مرحباً بك في تجربة الطباعة<br>سأكون معك خطوة بخطوة</p>
 <button class="choice" onclick="startFabric()">👜 الطباعة على القماش</button>
@@ -80,7 +80,7 @@ button {
 </div>
 
 <audio id="clickSound">
-<source src="click.mp3" type="audio/mpeg">
+<source src="./click.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -93,22 +93,24 @@ function play() {
 
 function startFabric() {
     steps = [
-        ["اختر الاستكرات", "fabric1.png"],
-        ["ضع الباوتش على الحصيرة", "fabric2.png"],
-        ["رتب الاستكرات", "fabric3.png"],
-        ["ضع ورق الحماية", "fabric4.png"],
-        ["اضغط بالمكبس الحراري", "fabric5.png"],
-        ["انتظر حتى يبرد", "fabric6.png"],
-        ["أزل الطبقة الشفافة", "fabric7.png"]
+        ["اختر الاستكرات", "./1.png"],
+        ["ضع الباوتش على الحصيرة", "./2.png"],
+        ["رتب الاستكرات", "./3.png"],
+        ["ضع ورق الحماية", "./4.png"],
+        ["اضغط بالمكبس الحراري", "./5.png"],
+        ["انتظر حتى يبرد", "./6.png"],
+        ["أزل الطبقة الشفافة", "./7.png"],
+        ["انتهيت! استمتع بقطعتك 🎉", "./finish.png"]
     ];
     startSteps();
 }
 
 function startCup() {
     steps = [
-        ["اختر الاستكر", "cup1.png"],
-        ["ضع الاستكر واضغط عليه جيداً", "cup2.png"],
-        ["أزل الطبقة الشفافة", "cup3.png"]
+        ["اختر الاستكر", "./1.png"],
+        ["ضع الاستكر واضغط عليه جيداً", "./2.png"],
+        ["أزل الطبقة الشفافة", "./3.png"],
+        ["انتهيت! استمتع بقطعتك 🎉", "./finish.png"]
     ];
     startSteps();
 }
@@ -127,6 +129,11 @@ function show() {
         document.getElementById("backBtn").classList.remove("hidden");
     } else {
         document.getElementById("backBtn").classList.add("hidden");
+    }
+    if(step === steps.length - 1){
+        document.querySelector(".next").classList.add("hidden");
+    } else {
+        document.querySelector(".next").classList.remove("hidden");
     }
 }
 
